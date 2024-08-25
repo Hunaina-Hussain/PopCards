@@ -6,6 +6,7 @@ import {db} from '@/firebase'
 import {useUser} from '@clerk/nextjs'
 import { useRouter } from "next/navigation"
 import {doc, setDoc, getDoc, collection, writeBatch } from 'firebase/firestore'
+import { Container, Box, Typography } from "@mui/material"
 
 export default function Generate(){
     const {isLoaded, isSignedIn, user} = useUser()
