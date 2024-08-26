@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Box, Typography, AppBar, Toolbar, Button } from '@mui/material'
-import { SignIn } from '@clerk/nextjs'
+import { SignUp } from '@clerk/nextjs'
 import Link from 'next/link'
 
 export default function SignUpPage() {
