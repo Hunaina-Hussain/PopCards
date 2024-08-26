@@ -14,7 +14,7 @@ import {
   CircularProgress,
   Alert,
 } from '@mui/material';
-import { db } from '../firebase'; // Ensure this path is correct
+import { db } from '../../firebase'; // Ensure this path is correct
 import { collection, doc, getDocs } from 'firebase/firestore';
 
 export default function Flashcard() {
