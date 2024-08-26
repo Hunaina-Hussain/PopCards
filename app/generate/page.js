@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState } from 'react';
 import {
   Container,
   TextField,
@@ -15,76 +15,79 @@ import {
   Grid,
   Card,
   CardContent
-} from '@mui/material'
-
+} from '@mui/material';
+import { doc, collection, getDoc, writeBatch } from 'firebase/firestore';
+import { db } from '../../firebase'; // Adjust the path to your Firebase config
 
 export default function Generate() {
-  const [text, setText] = useState('')
-  const [flashcards, setFlashcards] = useState([])
+  const [text, setText] = useState('');
+  const [flashcards, setFlashcards] = useState([]);
+  const [setName, setSetName] = useState('');
+  const [dialogOpen, setDialogOpen] = useState(false);
 
-  const [setName, setSetName] = useState('')
-  const [dialogOpen, setDialogOpen] = useState(false)
-
-  const handleOpenDialog = () => setDialogOpen(true)
-  const handleCloseDialog = () => setDialogOpen(false)
+  const handleOpenDialog = () => setDialogOpen(true);
+  const handleCloseDialog = () => setDialogOpen(false);
 
   const handleSubmit = async () => {
     if (!text.trim()) {
-      alert('Please enter some text to generate flashcards.')
-      return
+      alert('Please enter some text to generate flashcards.');
+      return;
     }
-  
+
     try {
       const response = await fetch('/api/generate', {
         method: 'POST',
-        body: text,
-      })
-  
+        body: JSON.stringify({ text }), // Send JSON data
+        headers: {
+          'Content-Type': 'application/json', // Set content type
+        },
+      });
+
       if (!response.ok) {
-        throw new Error('Failed to generate flashcards')
+        throw new Error('Failed to generate flashcards');
       }
-  
-      const data = await response.json()
-      setFlashcards(data)
+
+      const data = await response.json();
+      setFlashcards(data.flashcards || []); // Ensure flashcards are properly set
     } catch (error) {
-      console.error('Error generating flashcards:', error)
-      alert('An error occurred while generating flashcards. Please try again.')
+      console.error('Error generating flashcards:', error);
+      alert('An error occurred while generating flashcards. Please try again.');
     }
-  }
+  };
 
   const saveFlashcards = async () => {
     if (!setName.trim()) {
-      alert('Please enter a name for your flashcard set.')
-      return
+      alert('Please enter a name for your flashcard set.');
+      return;
     }
-  
+
     try {
-      const userDocRef = doc(collection(db, 'users'), 'user-id') // Replace 'user-id' with actual user ID
-      const userDocSnap = await getDoc(userDocRef)
-  
-      const batch = writeBatch(db)
-  
+      const userDocRef = doc(collection(db, 'users'), 'user-id'); // Replace 'user-id' with actual user ID
+      const userDocSnap = await getDoc(userDocRef);
+
+      const batch = writeBatch(db);
+
       if (userDocSnap.exists()) {
-        const userData = userDocSnap.data()
-        const updatedSets = [...(userData.flashcardSets || []), { name: setName }]
-        batch.update(userDocRef, { flashcardSets: updatedSets })
+        const userData = userDocSnap.data();
+        const updatedSets = [...(userData.flashcardSets || []), { name: setName }];
+        batch.update(userDocRef, { flashcardSets: updatedSets });
       } else {
-        batch.set(userDocRef, { flashcardSets: [{ name: setName }] })
+        batch.set(userDocRef, { flashcardSets: [{ name: setName }] });
       }
-  
-      const setDocRef = doc(collection(userDocRef, 'flashcardSets'), setName)
-      batch.set(setDocRef, { flashcards })
-  
-      await batch.commit()
-  
-      alert('Flashcards saved successfully!')
-      handleCloseDialog()
-      setSetName('')
+
+      const setDocRef = doc(collection(userDocRef, 'flashcardSets'), setName);
+      batch.set(setDocRef, { flashcards });
+
+      await batch.commit();
+
+      alert('Flashcards saved successfully!');
+      handleCloseDialog();
+      setSetName('');
     } catch (error) {
-      console.error('Error saving flashcards:', error)
-      alert('An error occurred while saving flashcards. Please try again.')
+      console.error('Error saving flashcards:', error);
+      alert('An error occurred while saving flashcards. Please try again.');
     }
-  }
+  };
 
   return (
     <Container maxWidth="md">
@@ -163,5 +166,5 @@ export default function Generate() {
         </DialogActions>
       </Dialog>
     </Container>
-  )
+  );
 }

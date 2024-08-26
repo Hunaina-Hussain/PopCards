@@ -1,57 +1,52 @@
 'use client'
 
-import Image from "next/image";
-import getStripe from "@/utils/get-stripe";
+import { useRouter } from 'next/navigation'; // Import useRouter from next/navigation
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
-import { Container, Box, Typography, Button } from "@mui/material"; // Corrected imports
-import Head from 'next/head'; // Correct import for Head
+import { Container, Box, Typography, Button, AppBar, Toolbar } from "@mui/material";
+import Head from 'next/head';
+import Link from 'next/link'; // Import Link from next/link
 
 export default function Home() {
-
-  const handleSubmit = async () => {
-    try {
-      const checkoutSession = await fetch('/api/checkout_session', {
-        method: 'POST',
-      });
-
-      const checkoutSessionJson = await checkoutSession.json();
-
-      if (checkoutSession.status === 500) {
-        console.error(checkoutSessionJson.message);
-        return;
-      }
-
-      const stripe = await getStripe();
-      const { error } = await stripe.redirectToCheckout({
-        sessionId: checkoutSessionJson.id,
-      });
-
-      if (error) {
-        console.warn(error.message);
-      }
-    } catch (err) {
-      console.error('Error during checkout:', err);
-    }
-  };
+  const router = useRouter();
 
   return (
-    <Container maxWidth="lg">
-      <Head>
-        <title>PopCards</title>
-        <meta name="description" content="Create flashcards from your text"></meta>
-      </Head>
+    <>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" style={{ flexGrow: 1 }}>
+            Flashcard SaaS
+          </Typography>
+          <SignedOut>
+            <Link href="/sign-in" passHref>
+              <Button color="inherit">Login</Button>
+            </Link>
+            <Link href="/sign-up" passHref>
+              <Button color="inherit">Sign Up</Button>
+            </Link>
+          </SignedOut>
+          <SignedIn>
+            {/* Make sure UserButton is correctly imported and used */}
+            <UserButton />
+          </SignedIn>
+        </Toolbar>
+      </AppBar>
       
-      <Box sx={{ textAlign: 'center', mt: 5 }}>
-        <Typography variant="h3" component="h1" gutterBottom>
-          Welcome to PopCards
+      <Box sx={{ textAlign: 'center', my: 4 }}>
+        <Typography variant="h2" component="h1" gutterBottom>
+          Welcome to Flashcard SaaS
         </Typography>
-        <Typography variant="h5" gutterBottom>
-          Create flashcards from your text.
+        <Typography variant="h5" component="h2" gutterBottom>
+          The easiest way to create flashcards from your text.
         </Typography>
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
-          Start Checkout
+        <Link href="/generate" passHref>
+          <Button variant="contained" color="primary" sx={{ mt: 2, mr: 2 }}>
+            Get Started
+          </Button>
+        </Link>
+        <Button variant="outlined" color="primary" sx={{ mt: 2 }}>
+          Learn More
         </Button>
       </Box>
-    </Container>
+    </>
   );
 }
