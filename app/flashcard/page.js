@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useUser } from '@react-oauth/google';
+import { useUser } from '@clerk/clerk-react';
 import { useSearchParams } from 'next/navigation';
 import {
   Box,
