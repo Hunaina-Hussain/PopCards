@@ -1,13 +1,5 @@
 'use client'
 
-<<<<<<< HEAD
-import { useState } from "react"
-import {db} from '@/firebase'
-import {useUser} from '@clerk/nextjs'
-import { useRouter } from "next/navigation"
-import {doc, setDoc, getDoc, collection, writeBatch } from 'firebase/firestore'
-import { Container, Box, Typography } from "@mui/material"
-=======
 import { useState } from 'react'
 import {
   Container,
@@ -24,7 +16,6 @@ import {
   Card,
   CardContent
 } from '@mui/material'
->>>>>>> 73cb8c011a145ac155fb104d4bf0c998205b7b3c
 
 
 export default function Generate() {
