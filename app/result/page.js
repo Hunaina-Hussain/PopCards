@@ -1,16 +1,8 @@
 'use client'
 
-<<<<<<< HEAD
-import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
-import getStripe from "@/utils/get-stripe"
-import { useSearchParams } from "next/navigation"
-import { CircularProgress, Container, Typography, Box } from "@mui/material"
-=======
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Container, Typography, Box, CircularProgress } from '@mui/material'
->>>>>>> 73cb8c011a145ac155fb104d4bf0c998205b7b3c
 
 const ResultPage = () => {
   const router = useRouter()
