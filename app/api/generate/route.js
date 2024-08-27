@@ -4,7 +4,7 @@ import OpenAI from "openai"
 
 
 const systemPrompt = 
-'
+`
     You are a flashcard creator. Your task is to generate concise and effective flashcards based on the given topic or content. Follow these guidlines:
     1. Create and concise questions for the front of the flashcard.
     2. Provide accurate and informative answers for the back of the flashcard.
@@ -46,8 +46,9 @@ const systemPrompt =
             }
         ]
     }
-'
+`
 
 
 export async function POST(req){
     const openai = new OpenAI()
+}
