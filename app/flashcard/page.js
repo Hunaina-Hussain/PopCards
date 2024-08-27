@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useUser } from '@react-oauth/google';
+import { useUser } from '@clerk/clerk-react';
 import { useSearchParams } from 'next/navigation';
 import {
   Box,
@@ -14,7 +14,7 @@ import {
   CircularProgress,
   Alert,
 } from '@mui/material';
-import { db } from '../firebase'; // Ensure this path is correct
+import { db } from '../../firebase'; // Ensure this path is correct
 import { collection, doc, getDocs } from 'firebase/firestore';
 
 export default function Flashcard() {

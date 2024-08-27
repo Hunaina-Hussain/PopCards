@@ -1,52 +1,51 @@
-import { typographyClasses } from "@mui/material"
-import { NextRequest, NextResponse } from "next/server"
-import OpenAI from "openai"
+import { NextResponse } from "next/server";
+import { GoogleGenerativeAI } from '@google/generative-ai'; // Ensure correct import
 
+export async function POST(req) {
+  const apiKey = process.env.GEMINI_API_KEY;
 
+  if (!apiKey) {
+    console.error("API Key is missing");
+    return NextResponse.json({ error: "API Key is missing" }, { status: 500 });
+  }
 
-const systemPrompt = 
-    "You are a flashcard creator. Your task is to generate concise and effective flashcards based on the given topic or content. Follow these guidlines:"
-    "1. Create and concise questions for the front of the flashcard."
-    "2. Provide accurate and informative answers for the back of the flashcard."
-    "3. Ensure that each flashcard focuses on a single concept or piece of information."
-    "4. Use simple language to make the flashcard accessible to a wide range of learners."
-    "5. Include a variety of question typographyClasses, such as definitions, examples, comparisons, and applications."
-    "6. Avoid overly complex or ambiguous phrasing in both questions and answers."
-    "7. When appropraite use mnuemonics or memory aids to help reinforce information."
-    "8. Tailor the difficulty level of the flashcards to the user's specified preferences."
-    "9. If given a body of text, extract the most important and relevant information for the flashacards."
-    "10. Aim to create a balanced set of flashcards that cover the topics comprehensively."
-    "11. Only generate 10 flashcards."
+  try {
+    // Initialize the API client with the API key
+    const genAI = new GoogleGenerativeAI({ apiKey });
 
-    "Remember, the goal is to facilitate effective learning and retention of information through these flashcards."
+    // Set system instructions and model parameters
+    const model = genAI.getGenerativeModell({
+      model: "gemini-1.5-flash",
+      systemInstruction: `
+        You are a flashcard creator. Your task is to generate concise and effective flashcards based on the given text. 
+        Create exactly 10 flashcards, each with a front and back side, formatted as follows:
 
-   "Return in the following JSON format:"
-    {
-        flashcards = [
+        {
+          "flashcards": [
             {
-                "front": str,
-                "back": str
+              "front": "Front of the card",
+              "back": "Back of the card"
             }
-        ]
+          ]
+        }
+      `,
+    });
+
+    // Get request data
+    const data = await req.json();
+    
+    if (!data.text) {
+      console.error("Text content is missing");
+      return NextResponse.json({ error: "Text content is missing" }, { status: 400 });
     }
 
+    // Send prompt to generate flashcards
+    const result = await model.generateContent(data.text);
+    const flashcards = JSON.parse(result.response) || []; // Adjust based on actual result structure
 
-export async function POST(req){
-    const openai = new OpenAI()
-    const data = await req.text()
-
-    const completion = await openai.chat.completion.create({ 
-        messages: [
-            {role: 'system', content: 'systemPrompt'},
-            {role: 'user', content: 'data'},
-        ],
-        model: "gpt-4o",
-        response_format: {type: 'json_object'},
-})
-
-console.log(completion.choices[0].message.content)
-
-const flashcards = JSON.parse(completion.choices[0].message.content)
-
-return NextResponse.json(flashcards.flashcards)
+    return NextResponse.json({ flashcards }, { status: 200 });
+  } catch (error) {
+    console.error("Error in API Call:", error.message || error);
+    return NextResponse.json({ error: "Error generating response" }, { status: 500 });
+  }
 }

@@ -1,25 +1,20 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app"
-import { getAnalytics } from "firebase/analytics"
-import { getFirestore } from "firebase/firestore"
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBySxpIkGhZHwfk5CE_Sp8wI7UDbTw-Oxk",
-  authDomain: "popcards-3932f.firebaseapp.com",
-  projectId: "popcards-3932f",
-  storageBucket: "popcards-3932f.appspot.com",
-  messagingSenderId: "142592127900",
-  appId: "1:142592127900:web:4ee7d31e00287875808e59",
-  measurementId: "G-97MY4R6TXN"
+  apiKey: "AIzaSyCaz1keGnl5iHBUechaXhQh2vg7R8UVhUg",
+  authDomain: "popcards-3b0b1.firebaseapp.com",
+  projectId: "popcards-3b0b1",
+  storageBucket: "popcards-3b0b1.appspot.com",
+  messagingSenderId: "877257496369",
+  appId: "1:877257496369:web:91a16fbfceadb579a7c210",
+  measurementId: "G-J65VRJYEDZ"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig)
-const analytics = getAnalytics(app)
-const db = getFirestore(app)
+// Initialize Firebase (to avoid re-initialization in case of hot-reloading or SSR)
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const db = getFirestore(app);
 
-export {db}
+export { db };
