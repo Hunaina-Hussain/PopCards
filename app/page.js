@@ -14,7 +14,7 @@ export default function Home() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" style={{ flexGrow: 1 }}>
-            Flashcard SaaS
+            PopCards
           </Typography>
           <SignedOut>
             <Link href="/sign-in" passHref>
@@ -33,14 +33,14 @@ export default function Home() {
       
       <Box sx={{ textAlign: 'center', my: 4 }}>
         <Typography variant="h2" component="h1" gutterBottom>
-          Welcome to Flashcard SaaS
+          Welcome to PopCards
         </Typography>
         <Typography variant="h5" component="h2" gutterBottom>
           The easiest way to create flashcards from your text.
         </Typography>
         <Link href="/generate" passHref>
           <Button variant="contained" color="primary" sx={{ mt: 2, mr: 2 }}>
-            Get Started
+            Start Generating
           </Button>
         </Link>
         <Button variant="outlined" color="primary" sx={{ mt: 2 }}>
