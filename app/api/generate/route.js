@@ -1,6 +1,9 @@
 import { typographyClasses } from "@mui/material"
 import { NextRequest, NextResponse } from "next/server"
-import OpenAI from "openai"
+import GoogleGenerativeAI from "@google/generative-ai"
+
+
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY)
 
 
 const systemPrompt = 
@@ -50,5 +53,25 @@ const systemPrompt =
 
 
 export async function POST(req){
-    const openai = new OpenAI()
+
+    const genAI = new GoogleGenerativeAI()
+    const data = await req.text()
+
+    const completion = await genAI.chat.completion.create({ 
+        messages: [
+            {role: 'system', content: 'systemPrompt'},
+            {role: 'user', content: 'data'},
+        ],
+        model: "gemini-1.5-flash",
+        response_format: {type: 'json_object'},
+})
+
+console.log(completion.choices[0].message.content)
+
+const flashcards = JSON.parse(completion.choices[0].message.content)
+
+return NextResponse.json(flashcards.flashcards)
 }
+
+}
+
