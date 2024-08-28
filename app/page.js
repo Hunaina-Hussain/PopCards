@@ -36,7 +36,7 @@ export default function Home() {
           Welcome to PopCards
         </Typography>
         <Typography variant="h5" component="h2" gutterBottom>
-          The easiest way to create flashcards from your text.
+          Where Comic Book Magic Meets High School Mastery with Flashcards That Pop! 📚💥
         </Typography>
         <Link href="/generate" passHref>
           <Button variant="contained" color="primary" sx={{ mt: 2, mr: 2 }}>
