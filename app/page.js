@@ -31,7 +31,22 @@ export default function Home() {
         </Toolbar>
       </AppBar>
       
-      <Box sx={{ textAlign: 'center', my: 4 }}>
+      <Box sx={{ textAlign: 'center', my: 4, position: 'relative', overflow: 'hidden' }}>
+        {/* Add the GIF image as background */}
+        <img 
+          src="/1.gif"
+          alt="Background GIF"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: -1, // Place behind content
+          }}
+        />
+        
         <Typography variant="h2" component="h1" gutterBottom>
           Welcome to PopCards
         </Typography>
