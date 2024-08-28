@@ -1,6 +1,6 @@
 import { typographyClasses } from "@mui/material"
 import { NextRequest, NextResponse } from "next/server"
-import GoogleGenerativeAI from "@google/generative-ai"
+import { GenerativeAI } from '@google/generative-ai';
 
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY)

@@ -2,9 +2,9 @@
 
 import { useRouter } from 'next/navigation'; // Import useRouter from next/navigation
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
-import { Container, Box, Typography, Button, AppBar, Toolbar } from "@mui/material";
-import Head from 'next/head';
-import Link from 'next/link'; // Import Link from next/link
+import { Box, Typography, Button, AppBar, Toolbar } from "@mui/material";
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   const router = useRouter();
@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" style={{ flexGrow: 1 }}>
+          <Typography variant="h6" style={{ flexGrow: 1 }} className="bangers">
             PopCards
           </Typography>
           <SignedOut>
@@ -31,9 +31,9 @@ export default function Home() {
         </Toolbar>
       </AppBar>
       
-      <Box sx={{ textAlign: 'center', my: 4, position: 'relative', overflow: 'hidden' }}>
+      <Box sx={{ textAlign: 'center', position: 'relative', overflow: 'hidden', height: 400, backgroundColor: 'rgba(0, 0, 0, 0.1)', }}>
         {/* Add the GIF image as background */}
-        <img 
+        <Image
           src="/1.gif"
           alt="Background GIF"
           style={{
@@ -46,21 +46,45 @@ export default function Home() {
             zIndex: -1, // Place behind content
           }}
         />
-        
-        <Typography variant="h2" component="h1" gutterBottom>
-          Welcome to PopCards
-        </Typography>
-        <Typography variant="h5" component="h2" gutterBottom>
-          Where Comic Book Magic Meets High School Mastery with Flashcards That Pop! 📚💥
-        </Typography>
-        <Link href="/generate" passHref>
-          <Button variant="contained" color="primary" sx={{ mt: 2, mr: 2 }}>
-            Start Generating
+        <Box sx={{ paddingTop: 10 }}>
+          <Typography variant="h2" component="h1" gutterBottom className="bangers">
+            Welcome to PopCards
+          </Typography>
+          <Typography variant="h5" component="h2" gutterBottom>
+            Where Comic Book Magic Meets High School Mastery with Flashcards That Pop! 📚💥
+          </Typography>
+          <Link href="/generate" passHref>
+            <Button variant="contained" color="primary" sx={{ mt: 2, mr: 2 }}>
+              Start Generating
+            </Button>
+          </Link>
+          <Button variant="outlined" color="primary" sx={{ mt: 2 }}>
+            Learn More
           </Button>
-        </Link>
-        <Button variant="outlined" color="primary" sx={{ mt: 2 }}>
-          Learn More
-        </Button>
+        </Box>
+      </Box>
+      <Box sx={{ position: 'relative'}}>
+        <Image
+          src="/16.png"
+          alt="Image"
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            width: '500px',
+            height: '500px',
+            objectFit: 'cover',
+            
+          }}
+        />
+        <Typography variant="h3" component="h2" gutterBottom sx={{ paddingTop: 10, paddingLeft: 2, width: 780, fontWeight: "bold",}}>
+          Ready to turn study time into a comic book adventure? 
+        </Typography>
+          <Typography variant="h3" component="h2" gutterBottom sx={{ paddingTop: 1, paddingLeft: 2, width: 780, height: 780,}}>
+          With PopCards, learning is all about the thrill of knowledge bursting off the page! 
+          💥 
+
+        </Typography>
       </Box>
     </>
   );
