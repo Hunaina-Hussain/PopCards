@@ -1,8 +1,11 @@
 import { typographyClasses } from "@mui/material"
 import { NextRequest, NextResponse } from "next/server"
-import OpenAI from "openai"
+import GoogleGenerativeAI from "@google/generative-ai"
 
 
+const { GoogleGenerativeAI } = require("@google/generative-ai")
+const fs = require("fs")
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY)
 
 const systemPrompt = 
     "You are a flashcard creator. Your task is to generate concise and effective flashcards based on the given topic or content. Follow these guidlines:"
@@ -32,15 +35,15 @@ const systemPrompt =
 
 
 export async function POST(req){
-    const openai = new OpenAI()
+    const genAI = new GoogleGenerativeAI()
     const data = await req.text()
 
-    const completion = await openai.chat.completion.create({ 
+    const completion = await genAI.chat.completion.create({ 
         messages: [
             {role: 'system', content: 'systemPrompt'},
             {role: 'user', content: 'data'},
         ],
-        model: "gpt-4o",
+        model: "gemini-1.5-flash",
         response_format: {type: 'json_object'},
 })
 
