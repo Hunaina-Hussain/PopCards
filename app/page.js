@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation'; // Import useRouter from next/navigation
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import { Box, Typography, Button, AppBar, Toolbar } from "@mui/material";
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Home() {
@@ -13,7 +12,7 @@ export default function Home() {
     <>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" style={{ flexGrow: 1 }} className="bangers">
+          <Typography variant="h6" style={{ flexGrow: 1 }} className="bangers" sx={{fontFamily: 'Bangers, sans-serif'}}>
             PopCards
           </Typography>
           <SignedOut>
@@ -31,9 +30,9 @@ export default function Home() {
         </Toolbar>
       </AppBar>
       
-      <Box sx={{ textAlign: 'center', position: 'relative', overflow: 'hidden', height: 400, backgroundColor: 'rgba(0, 0, 0, 0.1)', }}>
+      <Box sx={{ textAlign: 'center', position: 'relative', overflow: 'hidden', height: 400, backgroundColor: 'rgba(255, 255, 255, 0.2)', }}>
         {/* Add the GIF image as background */}
-        <Image
+        <img 
           src="/1.gif"
           alt="Background GIF"
           style={{
@@ -47,10 +46,10 @@ export default function Home() {
           }}
         />
         <Box sx={{ paddingTop: 10 }}>
-          <Typography variant="h2" component="h1" gutterBottom className="bangers">
+          <Typography variant="h2" component="h1" gutterBottom className='bangers' sx={{fontFamily: 'Bangers, sans-serif'}}>
             Welcome to PopCards
           </Typography>
-          <Typography variant="h5" component="h2" gutterBottom>
+          <Typography variant="h5" component="h2" gutterBottom sx={{fontFamily: 'Lato, sans-serif', fontWeight: 600,}}>
             Where Comic Book Magic Meets High School Mastery with Flashcards That Pop! 📚💥
           </Typography>
           <Link href="/generate" passHref>
@@ -64,8 +63,8 @@ export default function Home() {
         </Box>
       </Box>
       <Box sx={{ position: 'relative'}}>
-        <Image
-          src="/16.png"
+        <img 
+          src="/2.gif"
           alt="Image"
           style={{
             position: 'absolute',
@@ -76,15 +75,17 @@ export default function Home() {
             objectFit: 'cover',
             
           }}
-        />
-        <Typography variant="h3" component="h2" gutterBottom sx={{ paddingTop: 10, paddingLeft: 2, width: 780, fontWeight: "bold",}}>
+        ></img>
+        <Typography variant="h4" component="h2" gutterBottom sx={{ paddingTop: 25, paddingLeft: 4, width: 780, fontWeight: "700", fontFamily: 'Lato, sans-serif'}}>
           Ready to turn study time into a comic book adventure? 
         </Typography>
-          <Typography variant="h3" component="h2" gutterBottom sx={{ paddingTop: 1, paddingLeft: 2, width: 780, height: 780,}}>
+          <Typography variant="h4" component="h2" gutterBottom sx={{ paddingTop: 1, paddingLeft: 4, width: 780, height: 780, fontFamily: 'Lato, sans-serif', fontWeight: "400",}}>
           With PopCards, learning is all about the thrill of knowledge bursting off the page! 
-          💥 
-
+          💥
         </Typography>
+      </Box>
+      <Box sx={{ position: 'relative'}}>
+
       </Box>
     </>
   );
