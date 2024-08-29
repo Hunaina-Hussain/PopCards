@@ -19,9 +19,9 @@
   font-style: normal;
 }
 
-.montserrat{
-  font-family: "Montserrat", sans-serif;
+.oswald{
+  font-family: "Oswald", system-ui;
   font-optical-sizing: auto;
-  font-weight: 700;
+  font-weight: 600;
   font-style: normal;
 }
