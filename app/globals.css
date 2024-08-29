@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap'); /* Example for Inter */
+
+.bangers {
+  font-family: 'Bangers', sans-serif;
+}
+
+.inter {
+  font-family: 'Inter', sans-serif;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
