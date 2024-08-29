@@ -155,7 +155,7 @@ export default function Home() {
             paddingLeft: 50,
           }}
         ></img>
-            <Typography variant="h4" component="h2" gutterBottom sx={{ textAlign: 'right', paddingTop: 12, paddingLeft: 60, paddingRight: 4,  height: 780, fontFamily: 'Lato, sans-serif', fontWeight: "400",}}>
+          <Typography variant="h4" component="h2" gutterBottom sx={{ textAlign: 'right', paddingTop: 12, paddingLeft: 60, paddingRight: 4,  height: 780, fontFamily: 'Lato, sans-serif', fontWeight: "400",}}>
             Unleash your inner academic superhero and make your studies as exciting as the latest blockbuster! 🎬✨
           </Typography>
       
