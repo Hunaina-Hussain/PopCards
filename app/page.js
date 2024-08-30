@@ -36,7 +36,7 @@ export default function Home() {
         />
         <Box sx={{ 
           position: 'relative', 
-          padding: 50,
+          padding: 30,
           zIndex: 1, 
         }}>
           <Typography variant="h2" component="h1" gutterBottom className='bangers' sx={{fontFamily: 'Bangers, sans-serif'}}>
