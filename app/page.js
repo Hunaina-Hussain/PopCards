@@ -12,38 +12,10 @@ export default function Home() {
     <>
       <AppBar position="static" sx={{backgroundColor: 'rgba(253, 101, 119)'}}>
         <Toolbar>
-          <Typography variant="h6" style={{ flexGrow: 1 }} className="bangers" sx={{fontFamily: 'Bangers, sans-serif'}}>
+          <Typography variant="h5" style={{ flexGrow: 1 }} className="bangers" sx={{fontFamily: 'Bangers, sans-serif'}}>
             PopCards
           </Typography>
-          <SignedOut>
-            <Link href="/sign-in" passHref>
-              <Button variant="contained" 
-                sx={{ marginRight: 2, 
-                      backgroundColor: 'rgb(255, 255, 255)', 
-                      '&:hover': {
-                        backgroundColor: 'rgba(255, 255, 255, 6)',
-                        transform: 'scale(1.05)'},
-                        color: 'rgba(253, 101, 119)', 
-                        fontFamily: 'Lato, sans-serif', 
-                        fontWeight: 700,}}>Login</Button>
-            </Link>
           
-            <Link href="/sign-up" passHref>
-              <Button variant="contained" 
-                sx={{
-                  backgroundColor: 'rgb(255, 255, 255)', 
-                  '&:hover': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.6)',
-                    transform: 'scale(1.05)'},
-                    color: 'rgba(253, 101, 119)', 
-                    fontFamily: 'Lato, sans-serif', 
-                    fontWeight: 700,}}>Sign Up</Button>
-            </Link>
-          </SignedOut>
-          <SignedIn>
-            {/* Make sure UserButton is correctly imported and used */}
-            <UserButton />
-          </SignedIn>
         </Toolbar>
       </AppBar>
       
@@ -73,7 +45,7 @@ export default function Home() {
           <Typography variant="h5" component="h2" gutterBottom sx={{fontFamily: 'Lato, sans-serif', fontWeight: 600,}}>
             Where Comic Book Magic Meets High School Mastery with Flashcards That Pop! 📚💥
           </Typography>
-          <Link href="/generate" passHref>
+          <Link href="/#join" passHref>
             <Button variant="contained"
               sx={{ mt: 2, mr: 2,
                 backgroundColor: 'rgb(255, 255, 255)', 
@@ -83,24 +55,26 @@ export default function Home() {
                   color: 'rgba(253, 101, 119)', 
                   fontFamily: 'Lato, sans-serif', 
                   fontWeight: 700,}}>
-              Start Generating
+                Join the Waitlist!
             </Button>
           </Link>
-          <Button variant="outlined" 
-            sx={{ mt: 2, 
-              border: '2px solid white', 
-              '&:hover': {
-                backgroundColor: 'rgba(255, 255, 255, 0.6)',
-                transform: 'scale(1.05)',
-                border: '2px solid white'},
-              color: 'rgba(253, 101, 119)', 
-              fontFamily: 'Lato, sans-serif', 
-              fontWeight: 700,}}>
-            Learn More
-          </Button>
+          <Link href="/#learn-more" passHref>
+            <Button variant="outlined" 
+              sx={{ mt: 2, 
+                border: '2px solid white', 
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.6)',
+                  transform: 'scale(1.05)',
+                  border: '2px solid white'},
+                color: 'rgba(253, 101, 119)', 
+                fontFamily: 'Lato, sans-serif', 
+                fontWeight: 700,}}>
+              Learn More
+            </Button>
+          </Link>
         </Box>
       </Box>
-      <Box sx={{ position: 'relative', backgroundColor: 'rgba(254, 244, 222, 0.5)', height: 400,}}>
+      <Box id="learn-more" sx={{ position: 'relative', backgroundColor: 'rgba(254, 244, 222, 0.5)', height: 400,}}>
         <img 
           src="/6.png"
           alt="Image"
@@ -125,7 +99,7 @@ export default function Home() {
           </Typography>
       
       </Box>
-      <Box sx={{ position: 'relative', overflow: 'hidden', height: 400, backgroundColor: 'rgba(255, 255, 255, 0.2)'}}>
+      <Box sx={{ position: 'relative', overflow: 'hidden', height: 440, backgroundColor: 'rgba(255, 255, 255, 0.2)'}}>
         <img 
             src="/3.gif"
             alt="Background GIF"
@@ -158,7 +132,28 @@ export default function Home() {
           <Typography variant="h4" component="h2" gutterBottom sx={{ textAlign: 'right', paddingTop: 12, paddingLeft: 60, paddingRight: 4,  height: 780, fontFamily: 'Lato, sans-serif', fontWeight: "400",}}>
             Unleash your inner academic superhero and make your studies as exciting as the latest blockbuster! 🎬✨
           </Typography>
-      
+      </Box>
+      <Box id="join" sx={{ position: 'relative', backgroundColor: 'rgba(254, 244, 222, 0.2)'}}>
+      <Typography variant="h3" component="h1" gutterBottom sx={{ textAlign: 'center', paddingTop: 2, fontFamily: 'Bangers, sans-serif', fontWeight: "400",}}>
+          Join the Waitlist!
+        </Typography>
+        <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSeOP2AGJfYySwv87bBvpGQPrn6qtO5dxEToTv55xvRwtA1udQ/viewform?embedded=true"
+            width="100%"
+            height="700"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="Google Form"
+            style={{ border: 'none' }}
+          >
+            Loading…
+          </iframe>
+      </Box>
+      <Box>
+        <Typography variant="h5" gutterBottom sx={{ textAlign: 'center', paddingTop: 2, fontFamily: 'Lato, sans-serif', fontWeight: "400",}}>
+          
+        </Typography>
       </Box>
     </>
   );

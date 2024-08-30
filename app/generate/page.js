@@ -1,45 +1,29 @@
-'use client'
+'use client';
 
 import { useState } from 'react';
-import {
-  Container,
-  TextField,
-  Button,
-  Typography,
-  Box,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Grid,
-  Card,
-  CardContent
-} from '@mui/material';
-import { doc, collection, getDoc, writeBatch } from 'firebase/firestore';
-import { db } from '../../firebase'; // Adjust the path to your Firebase config
+import { Container, TextField, Button, Typography, Box, Grid, Card, CardContent } from '@mui/material';
 
 export default function Generate() {
-  const [text, setText] = useState('');
+  const [topic, setTopic] = useState('');
+  const [numCards, setNumCards] = useState(5); // Default number of flashcards
   const [flashcards, setFlashcards] = useState([]);
-  const [setName, setSetName] = useState('');
-  const [dialogOpen, setDialogOpen] = useState(false);
 
-  const handleOpenDialog = () => setDialogOpen(true);
-  const handleCloseDialog = () => setDialogOpen(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-    if (!text.trim()) {
-      alert('Please enter some text to generate flashcards.');
+    if (!topic.trim()) {
+      alert('Please enter a topic to generate flashcards.');
       return;
     }
+
+    setLoading(true);
 
     try {
       const response = await fetch('/api/generate', {
         method: 'POST',
-        body: JSON.stringify({ text }), // Send JSON data
+        body: JSON.stringify({ topic, numCards }),
         headers: {
-          'Content-Type': 'application/json', // Set content type
+          'Content-Type': 'application/json',
         },
       });
 
@@ -48,44 +32,17 @@ export default function Generate() {
       }
 
       const data = await response.json();
-      setFlashcards(data.flashcards || []); // Ensure flashcards are properly set
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      setFlashcards(data.flashcards || []);
     } catch (error) {
       console.error('Error generating flashcards:', error);
       alert('An error occurred while generating flashcards. Please try again.');
-    }
-  };
-
-  const saveFlashcards = async () => {
-    if (!setName.trim()) {
-      alert('Please enter a name for your flashcard set.');
-      return;
-    }
-
-    try {
-      const userDocRef = doc(collection(db, 'users'), 'user-id'); // Replace 'user-id' with actual user ID
-      const userDocSnap = await getDoc(userDocRef);
-
-      const batch = writeBatch(db);
-
-      if (userDocSnap.exists()) {
-        const userData = userDocSnap.data();
-        const updatedSets = [...(userData.flashcardSets || []), { name: setName }];
-        batch.update(userDocRef, { flashcardSets: updatedSets });
-      } else {
-        batch.set(userDocRef, { flashcardSets: [{ name: setName }] });
-      }
-
-      const setDocRef = doc(collection(userDocRef, 'flashcardSets'), setName);
-      batch.set(setDocRef, { flashcards });
-
-      await batch.commit();
-
-      alert('Flashcards saved successfully!');
-      handleCloseDialog();
-      setSetName('');
-    } catch (error) {
-      console.error('Error saving flashcards:', error);
-      alert('An error occurred while saving flashcards. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -96,24 +53,34 @@ export default function Generate() {
           Generate Flashcards
         </Typography>
         <TextField
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          label="Enter text"
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+          label="Enter topic"
           fullWidth
-          multiline
-          rows={4}
           variant="outlined"
           sx={{ mb: 2 }}
+        />
+        <TextField
+          type="number"
+          value={numCards}
+          onChange={(e) => setNumCards(parseInt(e.target.value, 10))}
+          label="Number of cards"
+          fullWidth
+          variant="outlined"
+          sx={{ mb: 2 }}
+          inputProps={{ min: 1 }} // Ensure at least 1 card
         />
         <Button
           variant="contained"
           color="primary"
           onClick={handleSubmit}
           fullWidth
+          disabled={loading} // Disable button while loading
         >
-          Generate Flashcards
+          {loading ? 'Generating...' : 'Generate Flashcards'}
         </Button>
       </Box>
+
       {flashcards.length > 0 && (
         <Box sx={{ mt: 4 }}>
           <Typography variant="h5" component="h2" gutterBottom>
@@ -135,36 +102,6 @@ export default function Generate() {
           </Grid>
         </Box>
       )}
-      {flashcards.length > 0 && (
-        <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-          <Button variant="contained" color="primary" onClick={handleOpenDialog}>
-            Save Flashcards
-          </Button>
-        </Box>
-      )}
-      <Dialog open={dialogOpen} onClose={handleCloseDialog}>
-        <DialogTitle>Save Flashcard Set</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Please enter a name for your flashcard set.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            label="Set Name"
-            type="text"
-            fullWidth
-            value={setName}
-            onChange={(e) => setSetName(e.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={saveFlashcards} color="primary">
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
     </Container>
   );
 }
