@@ -7,7 +7,18 @@ import Link from 'next/link';
 
 export default function Home() {
   const router = useRouter();
-
+  
+  const handleClick = (e) => {
+  e.preventDefault();
+  const target = document.getElementById('learn-more');
+  if (target) {
+    window.scrollTo({
+      top: target.offsetTop,
+      behavior: 'smooth' // This makes the scroll smooth
+    });
+  }
+};
+  
   return (
     <>
       <AppBar position="static" sx={{backgroundColor: 'rgba(253, 101, 119)'}}>
@@ -47,28 +58,37 @@ export default function Home() {
           </Typography>
           <Link href="/#join" passHref>
             <Button variant="contained"
-              sx={{ mt: 2, mr: 2,
-                backgroundColor: 'rgb(255, 255, 255)', 
+              sx={{
+                mt: 2,
+                border: '2px solid white',
                 '&:hover': {
                   backgroundColor: 'rgba(255, 255, 255, 0.6)',
-                  transform: 'scale(1.05)'},
-                  color: 'rgba(253, 101, 119)', 
-                  fontFamily: 'Lato, sans-serif', 
-                  fontWeight: 700,}}>
+                  transform: 'scale(1.05)',
+                  border: '2px solid white'
+                },
+                color: 'rgba(253, 101, 119)',
+                fontFamily: 'Lato, sans-serif',
+                fontWeight: 700,
+              }}
+              onClick={handleClick}>
                 Join the Waitlist!
             </Button>
           </Link>
           <Link href="/#learn-more" passHref>
             <Button variant="outlined" 
-              sx={{ mt: 2, 
-                border: '2px solid white', 
+              sx={{
+                mt: 2,
+                border: '2px solid white',
                 '&:hover': {
                   backgroundColor: 'rgba(255, 255, 255, 0.6)',
                   transform: 'scale(1.05)',
-                  border: '2px solid white'},
-                color: 'rgba(253, 101, 119)', 
-                fontFamily: 'Lato, sans-serif', 
-                fontWeight: 700,}}>
+                  border: '2px solid white'
+                },
+                color: 'rgba(253, 101, 119)',
+                fontFamily: 'Lato, sans-serif',
+                fontWeight: 700,
+              }}
+              onClick={handleClick}>
               Learn More
             </Button>
           </Link>
