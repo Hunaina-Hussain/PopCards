@@ -19,7 +19,7 @@ export default function Home() {
         </Toolbar>
       </AppBar>
       
-      <Box sx={{ textAlign: 'center', position: 'relative', overflow: 'hidden', height: 660, backgroundColor: 'rgba(255, 255, 255, 0.2)', }}>
+      <Box sx={{ textAlign: 'center', position: 'relative', overflow: 'hidden', height: 750, backgroundColor: 'rgba(255, 255, 255, 0.2)', }}>
         {/* Add the GIF image as background */}
         <img 
           src="/1.gif"
