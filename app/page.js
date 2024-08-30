@@ -58,36 +58,29 @@ export default function Home() {
           </Typography>
           <Link href="/#join" passHref>
             <Button variant="contained"
-              sx={{
-                mt: 2,
-                border: '2px solid white',
+              sx={{ mt: 2, mr: 2,
+                backgroundColor: 'rgb(255, 255, 255)',
                 '&:hover': {
                   backgroundColor: 'rgba(255, 255, 255, 0.6)',
-                  transform: 'scale(1.05)',
-                  border: '2px solid white'
-                },
+                  transform: 'scale(1.05)'},
                 color: 'rgba(253, 101, 119)',
                 fontFamily: 'Lato, sans-serif',
-                fontWeight: 700,
-              }}
+                fontWeight: 700,}}
               onClick={handleClick}>
                 Join the Waitlist!
             </Button>
           </Link>
           <Link href="/#learn-more" passHref>
             <Button variant="outlined" 
-              sx={{
-                mt: 2,
+              sx={{ mt: 2,
                 border: '2px solid white',
                 '&:hover': {
                   backgroundColor: 'rgba(255, 255, 255, 0.6)',
                   transform: 'scale(1.05)',
-                  border: '2px solid white'
-                },
+                  border: '2px solid white'},
                 color: 'rgba(253, 101, 119)',
                 fontFamily: 'Lato, sans-serif',
-                fontWeight: 700,
-              }}
+                fontWeight: 700,}}
               onClick={handleClick}>
               Learn More
             </Button>
