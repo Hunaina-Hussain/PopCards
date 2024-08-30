@@ -8,7 +8,18 @@ import Link from 'next/link';
 export default function Home() {
   const router = useRouter();
   
-  const handleClick = (e) => {
+  const handleClick_1 = (e) => {
+  e.preventDefault();
+  const target = document.getElementById('join');
+  if (target) {
+    window.scrollTo({
+      top: target.offsetTop,
+      behavior: 'smooth' // This makes the scroll smooth
+    });
+  }
+};
+
+const handleClick_2 = (e) => {
   e.preventDefault();
   const target = document.getElementById('learn-more');
   if (target) {
@@ -66,7 +77,7 @@ export default function Home() {
                 color: 'rgba(253, 101, 119)',
                 fontFamily: 'Lato, sans-serif',
                 fontWeight: 700,}}
-              onClick={handleClick}>
+              onClick={handleClick_1}>
                 Join the Waitlist!
             </Button>
           </Link>
@@ -81,7 +92,7 @@ export default function Home() {
                 color: 'rgba(253, 101, 119)',
                 fontFamily: 'Lato, sans-serif',
                 fontWeight: 700,}}
-              onClick={handleClick}>
+              onClick={handleClick_2}>
               Learn More
             </Button>
           </Link>
