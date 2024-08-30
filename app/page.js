@@ -7,7 +7,29 @@ import Link from 'next/link';
 
 export default function Home() {
   const router = useRouter();
+  
+  const handleClick_1 = (e) => {
+  e.preventDefault();
+  const target = document.getElementById('join');
+  if (target) {
+    window.scrollTo({
+      top: target.offsetTop,
+      behavior: 'smooth' // This makes the scroll smooth
+    });
+  }
+};
 
+const handleClick_2 = (e) => {
+  e.preventDefault();
+  const target = document.getElementById('learn-more');
+  if (target) {
+    window.scrollTo({
+      top: target.offsetTop,
+      behavior: 'smooth' // This makes the scroll smooth
+    });
+  }
+};
+  
   return (
     <>
       <AppBar position="static" sx={{backgroundColor: 'rgba(253, 101, 119)'}}>
@@ -19,7 +41,7 @@ export default function Home() {
         </Toolbar>
       </AppBar>
       
-      <Box sx={{ textAlign: 'center', position: 'relative', overflow: 'hidden', height: 610, backgroundColor: 'rgba(255, 255, 255, 0.2)', }}>
+      <Box sx={{ textAlign: 'center', position: 'relative', overflow: 'hidden', height: 780, backgroundColor: 'rgba(255, 255, 255, 0.2)', }}>
         {/* Add the GIF image as background */}
         <img 
           src="/1.gif"
@@ -36,7 +58,7 @@ export default function Home() {
         />
         <Box sx={{ 
           position: 'relative', 
-          padding: 20,
+          padding: 30,
           zIndex: 1, 
         }}>
           <Typography variant="h2" component="h1" gutterBottom className='bangers' sx={{fontFamily: 'Bangers, sans-serif'}}>
@@ -48,27 +70,29 @@ export default function Home() {
           <Link href="/#join" passHref>
             <Button variant="contained"
               sx={{ mt: 2, mr: 2,
-                backgroundColor: 'rgb(255, 255, 255)', 
+                backgroundColor: 'rgb(255, 255, 255)',
                 '&:hover': {
                   backgroundColor: 'rgba(255, 255, 255, 0.6)',
                   transform: 'scale(1.05)'},
-                  color: 'rgba(253, 101, 119)', 
-                  fontFamily: 'Lato, sans-serif', 
-                  fontWeight: 700,}}>
+                color: 'rgba(253, 101, 119)',
+                fontFamily: 'Lato, sans-serif',
+                fontWeight: 700,}}
+              onClick={handleClick_1}>
                 Join the Waitlist!
             </Button>
           </Link>
           <Link href="/#learn-more" passHref>
             <Button variant="outlined" 
-              sx={{ mt: 2, 
-                border: '2px solid white', 
+              sx={{ mt: 2,
+                border: '2px solid white',
                 '&:hover': {
                   backgroundColor: 'rgba(255, 255, 255, 0.6)',
                   transform: 'scale(1.05)',
                   border: '2px solid white'},
-                color: 'rgba(253, 101, 119)', 
-                fontFamily: 'Lato, sans-serif', 
-                fontWeight: 700,}}>
+                color: 'rgba(253, 101, 119)',
+                fontFamily: 'Lato, sans-serif',
+                fontWeight: 700,}}
+              onClick={handleClick_2}>
               Learn More
             </Button>
           </Link>
